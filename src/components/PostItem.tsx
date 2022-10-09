@@ -1,3 +1,5 @@
+import '../css/PostItem/style.css';
+
 import { Card } from '@mantine/core';
 import { useNavigate } from 'react-router';
 
@@ -15,7 +17,7 @@ export default function PostItem({ post }: PostItemProps) {
   };
 
   return (
-    <Card onClick={onClick} shadow="sm" withBorder>
+    <Card className="post-item" onClick={onClick} shadow="sm" withBorder>
       <Card.Section p={5}>Title: {post.title}</Card.Section>
       <Card.Section p={5}>Description: {post.body}</Card.Section>
       <Card.Section p={5}>User ID: {post.user_id}</Card.Section>

@@ -1,34 +1,34 @@
 import { Container, Grid } from '@mantine/core';
 import axios from 'axios';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useInfiniteQuery } from 'react-query';
 
+import Loader from '../components/Loader';
 import PostItem from '../components/PostItem';
 import { Post } from '../types/Post';
 
-const getPosts = async (pageNumber: number) => {
+const getPosts = async (pageNumber: number | any) => {
+  if (Object.keys(pageNumber).length > 0) {
+    const pageNum = pageNumber.pageParam;
+    const res = await axios.get('/public/v1/posts?page=' + pageNum);
+    return res.data;
+  }
   const res = await axios.get('/public/v1/posts?page=' + pageNumber);
   return res.data;
 };
 
 export default function PostsPage() {
-  const [page, setPage] = useState(1);
-  const { data, status, fetchNextPage } = useInfiniteQuery(
-    'users',
-    ({ pageParam = page }) => getPosts(pageParam),
-    {
-      getNextPageParam: (lastPage) => lastPage + 1,
-      getPreviousPageParam: (firstPage) => firstPage - 1,
-    },
+  const { data, status, fetchNextPage } = useInfiniteQuery('users', ({ pageParam = 1 }) =>
+    getPosts(pageParam),
   );
 
-  if (status === 'loading') return <Container>Loading...</Container>;
+  if (status === 'loading') return <Loader />;
   if (status === 'error') return <Container>Error</Container>;
 
+  const lastPage = data?.pages[data.pages.length - 1];
+
   const getNextPosts = async () => {
-    setPage((prev) => prev + 1);
-    await fetchNextPage({ pageParam: page });
+    await fetchNextPage({ pageParam: lastPage.meta.pagination.page + 1 });
   };
 
   return (
@@ -36,7 +36,7 @@ export default function PostsPage() {
       <h4>Posts</h4>
       <InfiniteScroll
         next={getNextPosts}
-        loader={<Container mt={20}>Loading...</Container>}
+        loader={<Loader />}
         hasMore={true}
         dataLength={10}
       >

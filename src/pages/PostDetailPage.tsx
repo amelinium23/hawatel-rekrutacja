@@ -20,8 +20,10 @@ export default function PostDetailPage() {
   const { id } = useParams();
   const { state } = useLocation();
   const { post } = state as LocationState;
-
   const { data, status } = useQuery('post', () => getComments(parseInt(id ?? '') ?? 0));
+
+  if (status === 'loading') return <Container>Loading...</Container>;
+  if (status === 'error') return <Container>Error</Container>;
 
   return (
     <Container mt={20}>
@@ -29,9 +31,7 @@ export default function PostDetailPage() {
       <p>{post.body}</p>
       <p>Created by user: {post.user_id}</p>
       <h5>Comments</h5>
-      {status === 'loading' && <Container>Loading...</Container>}
-      {status === 'error' && <Container>Error</Container>}
-      {data.data ? (
+      {data.data.length > 0 ? (
         data.data.map((comment: Comment) => (
           <CommentItem comment={comment} key={comment.id} />
         ))
