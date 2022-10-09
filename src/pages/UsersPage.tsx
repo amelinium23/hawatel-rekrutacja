@@ -1,6 +1,6 @@
 import { Container, Grid } from '@mantine/core';
 import axios from 'axios';
-import React from 'react';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useInfiniteQuery } from 'react-query';
 
@@ -13,7 +13,7 @@ const getUsers = async (pageNumber: number) => {
 };
 
 function UsersPage() {
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
   const { data, status, fetchNextPage } = useInfiniteQuery(
     'users',
     ({ pageParam = page }) => getUsers(pageParam),
