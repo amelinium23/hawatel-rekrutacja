@@ -31,6 +31,8 @@ function UsersPage() {
     await fetchNextPage({ pageParam: lastPage.meta.pagination.page + 1 });
   };
 
+  console.log(data);
+
   return (
     <Container mt={20}>
       <h4>Users</h4>

@@ -1,6 +1,5 @@
 import { Button, Container, Group, Select, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { showNotification } from '@mantine/notifications';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
@@ -37,13 +36,7 @@ export default function AddUserPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const values = form.values;
-    const res = await addNewUser(values);
-    const data = res.data.data;
-    showNotification({
-      title: 'User Added',
-      message: `Added User with id: ${data.id}`,
-      autoClose: 3000,
-    });
+    await addNewUser(values);
     navigate('/users');
   };
 

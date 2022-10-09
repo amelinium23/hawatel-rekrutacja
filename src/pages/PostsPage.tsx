@@ -37,8 +37,8 @@ export default function PostsPage() {
       <InfiniteScroll
         next={getNextPosts}
         loader={<Loader />}
-        hasMore={true}
-        dataLength={10}
+        hasMore={lastPage.meta.pagination.links.next !== null}
+        dataLength={lastPage.meta.pagination.total}
       >
         <Grid>
           {data?.pages.map((page) =>
