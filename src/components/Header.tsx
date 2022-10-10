@@ -1,4 +1,6 @@
-import { Anchor, Container, Group, Header as MHeader } from '@mantine/core';
+import '../css/Header/header.css';
+
+import { Anchor, Center, Group, Header as MHeader } from '@mantine/core';
 import { useNavigate } from 'react-router';
 
 export default function Header() {
@@ -26,15 +28,25 @@ export default function Header() {
 
   return (
     <MHeader withBorder height={30}>
-      <Container>
+      <Center>
         <Group spacing="lg">
-          <Anchor onClick={handleUsersNavigation}>Users</Anchor>
-          <Anchor onClick={handlePostsNavigation}>Posts</Anchor>
-          <Anchor onClick={handleToDoNavigation}>To Do</Anchor>
-          <Anchor onClick={handleAddPost}>Add post</Anchor>
-          <Anchor onClick={handleAddUser}>Add user</Anchor>
+          <Anchor className="header-link" variant="text" onClick={handleUsersNavigation}>
+            Users
+          </Anchor>
+          <Anchor className="header-link" variant="text" onClick={handlePostsNavigation}>
+            Posts
+          </Anchor>
+          <Anchor className="header-link" variant="text" onClick={handleToDoNavigation}>
+            To Do
+          </Anchor>
+          <Anchor className="header-link" variant="text" onClick={handleAddPost}>
+            Add post
+          </Anchor>
+          <Anchor className="header-link" variant="text" onClick={handleAddUser}>
+            Add user
+          </Anchor>
         </Group>
-      </Container>
+      </Center>
     </MHeader>
   );
 }

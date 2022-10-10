@@ -1,5 +1,4 @@
 import { MantineProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -19,9 +18,7 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <MantineProvider>
-          <NotificationsProvider>
-            <App />
-          </NotificationsProvider>
+          <App />
         </MantineProvider>
       </BrowserRouter>
     </QueryClientProvider>
